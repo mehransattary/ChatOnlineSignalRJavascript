@@ -1,0 +1,103 @@
+﻿<script src="/assets/js/jquery-3.3.1.min.js"></script>
+<script src="/assets/js/owl.carousel.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/tippy-bundle.iife.min.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/switchery.js"></script>
+<script src="/assets/js/easytimer.min.js">        </script>
+<script src="/assets/js/index.js">        </script>
+<script src="/assets/js/feather-icon/feather.min.js"></script>
+<script src="/assets/js/feather-icon/feather-icon.js"></script>
+<script src="/assets/js/ckeditor/ckeditor.js"></script>
+<script src="/assets/js/ckeditor/styles.js"></script>
+<script src="/assets/js/ckeditor/adapters/jquery.js"></script>
+<script src="/assets/js/ckeditor/ckeditor.custom.js"></script>
+<script src="/assets/js/date-picker/datepicker.js"></script>
+<script src="/assets/js/date-picker/datepicker.en.js"></script>
+<script src="/assets/js/date-picker/datepicker.custom.js"></script>
+@*<script src="/assets/js/tour/intro.js"></script>
+<script src="/assets/js/tour/intro-init.js"></script>*@
+<script src="/assets/js/jquery.magnific-popup.js"></script>
+<script src="/assets/js/zoom-gallery.js"></script>
+<script src="/assets/js/script.js"></script>
+<script src="/assets/js/jquery.md.bootstrap.datetimepicker.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".datepicker-persian").MdPersianDateTimePicker({
+            enableTimePicker: false, // set true if you want to enable time picking inputs in picker
+            targetTextSelector: ".datepicker-persian",// target DOM element to display date-time to user
+            textFormat: "yyyy-MM-dd",
+            isGregorian: false,
+            modalMode: true,// set false to enable popover mode instead modal
+            englishNumber: false // set true if you want to show english digits
+        });
+
+        /*=====================
+    05. Search js
+    ==========================*/
+        $(".search").on("click", function (e) {
+            $(this).siblings().toggleClass("open");
+            $(this).parent().find(".form-inline").toggleClass("open");
+        });
+        $(".close-search").on("click", function (e) {
+            $(this).parent().parent().removeClass("open");
+        });
+        $(".search-right").on("click", function (e) {
+            try {
+                $(this)
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent()
+                    .find(".form-inline")
+                    .toggleClass("open");
+                $(this)
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent()
+                    .find(".form-inline")
+                    .toggleClass("open");
+                $(this)
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent()
+                    .parent()
+                    .find(".form-inline")
+                    .toggleClass("open");
+            } catch (error) {
+            }
+        });
+        $(".close-search").on("click", function (e) {
+            $(this).parent().parent().removeClass("open");
+        });
+
+    });
+</script>
+
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+@inject IAccountService _accountService;
+@{
+    if(User.Identity.IsAuthenticated)
+    {
+        var roles =await _accountService.GetRoleNameByUsername(User.Identity.Name);
+        if (roles.Contains("admin"))
+        {
+            <script src="~/js/SupportSignalRService.js"></script>
+
+        }
+        else
+        {
+            <script src="~/js/SignalRService.js"></script>
+
+        }
+    }
+}

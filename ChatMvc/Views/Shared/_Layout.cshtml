@@ -1,0 +1,35 @@
+﻿
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <title>@ViewData["Title"]</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Chitchat">
+    <meta name="keywords" content="Chitchat">
+    <meta name="author" content="Chitchat">
+    <partial name="_Styles" />
+</head>
+
+
+
+<body class="rtl ">
+    <partial name="_Loader" />
+    <div class="chitchat-container sidebar-toggle">
+        <partial name="_Users" />
+
+        <div class="chitchat-main small-sidebar" id="content">
+            <div class="chat-content tabto active">
+                @RenderBody()             
+                <partial name="_Input" />
+            </div>         
+        </div>
+        <partial name="_Settings" />
+    </div>
+    <partial name="_Scripts" />
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

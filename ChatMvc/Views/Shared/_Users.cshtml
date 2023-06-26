@@ -1,0 +1,183 @@
+﻿<aside class="chitchat-left-sidebar left-disp">
+    <div class="recent-default dynemic-sidebar active">
+        <div class="chat custom-scroll">
+            <ul class="chat-cont-setting">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#msgchatModal" >
+                        <span> کارشناسان</span>
+                        <div class="icon-btn btn-outline-primary button-effect btn-sm">
+                            <i data-feather="users"></i>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#msgcallModal" >
+                        <span> مشتریان</span>
+                        <div class="icon-btn btn-outline-success button-effect btn-sm"><i data-feather="users"></i></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#exampleModalCenter">
+                        <span>افزودن مشتری جدید </span>
+                        <div class="icon-btn btn-outline-danger button-effect btn-sm"><i data-feather="user"></i></div>
+                    </a>
+                </li>
+            </ul>
+            <div class="theme-title">
+                <div class="media">
+                    <div>
+                        <h2>تایکو تاک</h2>
+                        <h4>
+                            <a href="https://tie.co.ir"> خبرگان بین المللی تهران </a>
+                        </h4>
+                    </div>
+                    <div class="media-body text-right">
+                        <a class="icon-btn btn-outline-light btn-sm search contact-search"
+                           href="#">
+                            <i data-feather="search"></i>
+                        </a>
+                        <form class="form-inline search-form">
+                            <div class="form-group">
+                                <input id="searchuser"
+                                       class="form-control-plaintext"
+                                       type="search"
+                                       placeholder="جستجو.."
+                                       oninput="searchUser()" />
+                                <div class="icon-close close-search"></div>
+                            </div>
+                        </form>
+
+
+                        @inject IAccountService _accountService;
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                var roles = await _accountService.GetRoleNameByUsername(User.Identity.Name);
+                                if (roles.Contains("admin"))
+                                {
+                                    <a class="icon-btn btn-primary btn-fix chat-cont-toggle outside" href="#">                              
+                                        <i data-feather="plus"></i>
+                                    </a>
+                                }
+
+                            }
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="theme-tab tab-sm chat-tabs">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active"
+                         id="chat"
+                         role="tabpanel"
+                         aria-labelledby="chat-tab">
+                        <div class="theme-tab">
+                            <div class="tab-content" id="myTabContent1">
+                                <div class="tab-pane fade show active"
+                                     id="direct"
+                                     role="tabpanel"
+                                     aria-labelledby="direct-tab">
+                                    <ul class="chat-main" id="userList"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+
+
+<!-----------کارشناسان------------------------->
+<div class="modal fade add-popup msg-chat-modal" id="msgchatModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    کارشناسان
+                </h2>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="chat-msg-search">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="جستجو " aria-label="Recipient's username"
+                               aria-describedby="basic-addon21" />
+                        <div class="input-group-append"><span class="input-group-text" id="basic-addon21"></span></div>
+                    </div>
+                </div>
+                <ul class="chat-main custom-scroll"id="experts-list">
+          
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-----------مشتریان--------------------------->
+<div class="modal fade add-popup msg-chat-modal" id="msgcallModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    مشتریان
+                </h2>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="chat-msg-search">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="جستجو" aria-label="Recipient's username"
+                               aria-describedby="basic-addon20" />
+                        <div class="input-group-append"><span class="input-group-text" id="basic-addon20"></span></div>
+                    </div>
+                </div>
+                <ul class="call-log-main custom-scroll"  id="customers-list">
+              
+                  
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-----------افزودن مشتری--------------------->
+<div class="modal fade add-popup add-contact-modal" id="exampleModalCenter" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    افزودن مخاطب
+                </h2>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="default-form">
+                    <div class="form-group">
+                        <h5>ایمیل یا نام کاربری</h5>
+                        <input class="form-control" id="exampleInputEmail1" type="text" placeholder="سعید مظفری" />
+                    </div>
+                    <div class="form-group mb-0">
+                        <h5>شماره مخاطب</h5>
+                        <input class="form-control" id="examplemsg" type="number" placeholder="09155555555" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger button-effect btn-sm" type="button" data-dismiss="modal">انصراف</button>
+                <button class="btn btn-primary button-effect btn-sm" type="button">افزودن مخاطب</button>
+            </div>
+        </div>
+    </div>
+</div>
+
